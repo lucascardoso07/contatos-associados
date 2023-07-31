@@ -1,6 +1,6 @@
-# Aplicação de Cadastro e Gerenciamento de Cadastro
+# Aplicação de Cadastro e Gerenciamento de contatos 
 
-Este projeto é uma aplicação de cadastro e gerenciamento de cadastro, desenvolvida utilizando as seguintes tecnologias:
+Este projeto é uma aplicação de cadastro e gerenciamento de contatos, desenvolvida utilizando as seguintes tecnologias:
 
 ## Front-end
 
@@ -34,7 +34,7 @@ npm install
 ```
 5.Inicie o servidor de desenvolvimento para o front-end:
 ```bash
-npm start
+npm run dev
 ```
 6.Em outro terminal, navegue para o diretório da parte do back-end:
 ```bash
@@ -83,6 +83,5 @@ Este projeto é apenas uma demonstração de uma aplicação básica de cadastro
 
 Se tiver alguma dúvida ou encontrar algum problema, sinta-se à vontade para abrir uma issue no repositório ou entrar em contato comigo.
 
-Aproveite a aplicação e bons estudos!
 
 
