@@ -1,26 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
+import { ContactRepository } from './repositories/contact.repository';
 
 @Injectable()
 export class ContactService {
-  create(createContactDto: CreateContactDto) {
-    return 'This action adds a new contact';
+  constructor(private contactRepository: ContactRepository) {}
+  async create(data: CreateContactDto, userId: string) {
+    return await this.contactRepository.create(data, userId);
   }
 
-  findAll() {
-    return `This action returns all contact`;
+  async findAll() {
+    return await this.contactRepository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} contact`;
+  async findOne(id: string) {
+    const findContact = await this.contactRepository.findOne(id);
+    if (!findContact) {
+      throw new NotFoundException('contact not found');
+    }
   }
 
-  update(id: number, updateContactDto: UpdateContactDto) {
-    return `This action updates a #${id} contact`;
+  async update(id: string, updateContactDto: UpdateContactDto) {
+    const findContact = await this.contactRepository.findOne(id);
+    if (!findContact) {
+      throw new NotFoundException('contact not found');
+    }
+    return this.contactRepository.update(id, updateContactDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} contact`;
+  async remove(id: string) {
+    const findContact = await this.contactRepository.findOne(id);
+    if (!findContact) {
+      throw new NotFoundException('contact not found');
+    }
+    return this.contactRepository.delete(id);
   }
 }

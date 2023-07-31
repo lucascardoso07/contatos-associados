@@ -11,7 +11,7 @@ import { UpdateContactDto } from '../../dto/update-contact.dto';
 export class ContactPrismaRepository implements ContactRepository {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateContactDto): Promise<Contact> {
+  async create(data: CreateContactDto, userId: string): Promise<Contact> {
     const contact = new Contact();
     Object.assign(contact, {
       ...data,
@@ -23,7 +23,7 @@ export class ContactPrismaRepository implements ContactRepository {
         name: contact.name,
         telefone: contact.telefone,
         createdAt: contact.createdAt,
-        userId: contact.userId,
+        userId: userId,
       },
     });
     return newContact;
