@@ -12,7 +12,6 @@ export const DashBoardPage = () => {
   const [showModalUpdate, setShowModalUpdate] = useState(false);
   const [editContact, setEditinContact] = useState<IContact | null>(null);
 
-  // console.log(user);
   const handdleModalCreate = () => {
     if (showModalCreate) {
       setShowModalCreate(false);

@@ -23,7 +23,7 @@ export const ContactProviders = ({ children }: IChildrenProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response.data);
+
       const data = response.data;
       setContacts([...contacts, data]);
     } catch (error) {
@@ -67,7 +67,7 @@ export const ContactProviders = ({ children }: IChildrenProps) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response);
+
       const NewsContacts = contacts.map((contact) => {
         if (contactId === contact.id) {
           return { ...contact, ...formData };
@@ -75,7 +75,6 @@ export const ContactProviders = ({ children }: IChildrenProps) => {
           return contact;
         }
       });
-      console.log(NewsContacts);
       setContacts(NewsContacts);
     } catch (error) {
       console.log(error);

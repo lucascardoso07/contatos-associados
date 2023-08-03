@@ -34,7 +34,6 @@ export const UserProviders = ({ children }: IUserProviderProps) => {
       navigate("/dashboard");
       setuserIsLogin(true);
       setUserId(response.data.userId);
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -43,7 +42,6 @@ export const UserProviders = ({ children }: IUserProviderProps) => {
   const userRegister = async (formData: IRegisterFormData) => {
     try {
       await api.post("/user", formData);
-      console.log("cadastro efetuado com sucesso");
       navigate("/login");
     } catch (err) {
       console.log(err);

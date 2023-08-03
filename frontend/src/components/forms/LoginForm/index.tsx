@@ -3,10 +3,10 @@ import { ILoginFormData } from "../../../interfaces/Users.interfaces";
 import { StyledLoginForm } from "./style";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { UserContext } from "../../../providers/UserContext";
+import { Link } from "react-router-dom";
 
 export const LoginForm = () => {
   const { register, handleSubmit } = useForm<ILoginFormData>();
-
   const { userLogin } = useContext(UserContext);
 
   const submit: SubmitHandler<ILoginFormData> = (formData: ILoginFormData) => {
@@ -28,7 +28,9 @@ export const LoginForm = () => {
         <button className="primary-button" type="submit">
           Entrar
         </button>
-        <button className="secoundary-button">Cadastrar</button>
+        <Link to="/register" className="secoundary-button">
+          Cadastrar
+        </Link>
       </div>
     </StyledLoginForm>
   );

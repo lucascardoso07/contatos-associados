@@ -64,6 +64,9 @@ export const StyledLoginForm = styled.form`
     color: var(--brand-1);
     transition: all ease-in 0.2s;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .primary-button:hover {
     background-color: transparent;
