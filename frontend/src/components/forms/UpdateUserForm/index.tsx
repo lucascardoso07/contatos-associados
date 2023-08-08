@@ -1,26 +1,36 @@
 import { useContext } from "react";
 import { IContactCreateFormData } from "../../../interfaces/Contacts.interfaces";
-import { StyledCreateContactForm } from "./style";
+import { StyledUpdateUserForm } from "./style";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ContactContext } from "../../../providers/ContactsContext";
+import { IUserForUserState } from "../../../providers/ContactsContext";
+import { UserContext } from "../../../providers/UserContext";
 
 interface IProps {
-  handdleModalCreate: () => void;
+  user: IUserForUserState | undefined;
+  handdleModalUpdateUser: () => void;
 }
 
-export const CreateContactForm = ({ handdleModalCreate }: IProps) => {
-  const { register, handleSubmit } = useForm<IContactCreateFormData>();
-  const { createContact } = useContext(ContactContext);
+export const UpdateUserForm = ({ handdleModalUpdateUser, user }: IProps) => {
+  const { userUptade } = useContext(UserContext);
+
+  const { register, handleSubmit } = useForm<IContactCreateFormData>({
+    defaultValues: {
+      email: user?.email,
+      name: user?.name,
+      telefone: user?.telefone,
+    },
+  });
 
   const submit: SubmitHandler<IContactCreateFormData> = (
     formData: IContactCreateFormData
   ) => {
-    createContact(formData);
-    handdleModalCreate();
+    handdleModalUpdateUser();
+    const userId = localStorage.getItem("@userId");
+    userUptade(formData, userId!);
   };
 
   return (
-    <StyledCreateContactForm onSubmit={handleSubmit(submit)}>
+    <StyledUpdateUserForm onSubmit={handleSubmit(submit)}>
       <div className="input--container">
         <div className="flex">
           <label htmlFor="name">Nome:</label>
@@ -36,8 +46,8 @@ export const CreateContactForm = ({ handdleModalCreate }: IProps) => {
         </div>
       </div>
       <button className="button-add" type="submit">
-        Adicionar
+        Atualizar
       </button>
-    </StyledCreateContactForm>
+    </StyledUpdateUserForm>
   );
 };

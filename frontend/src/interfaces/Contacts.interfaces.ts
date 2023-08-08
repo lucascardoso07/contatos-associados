@@ -1,3 +1,5 @@
+import { IUserForUserState } from "../providers/ContactsContext";
+
 export interface IContactCreateFormData {
   email: string;
   password: string;
@@ -22,4 +24,6 @@ export interface IContactProvidersProps {
     contactId: string
   ) => Promise<void>;
   contactDelete: (contactId: string) => Promise<void>;
+  user: IUserForUserState | undefined;
+  setUser: React.Dispatch<React.SetStateAction<IUserForUserState | undefined>>;
 }

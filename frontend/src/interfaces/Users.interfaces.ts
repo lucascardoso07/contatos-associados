@@ -27,6 +27,8 @@ export interface IUserContext {
   userLogout: () => void;
   userIsLogin: boolean;
   userId: string;
+  userUptade: (formData: Partial<IUser>, userId: string) => Promise<void>;
+  userDelete: (userId: string) => Promise<void>;
 }
 
 export interface ILoginResponse {

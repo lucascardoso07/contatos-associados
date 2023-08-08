@@ -4,6 +4,7 @@ import {
   ILoginFormData,
   ILoginResponse,
   IRegisterFormData,
+  IUser,
   IUserContext,
 } from "../interfaces/Users.interfaces";
 import { useNavigate } from "react-router-dom";
@@ -56,9 +57,46 @@ export const UserProviders = ({ children }: IUserProviderProps) => {
     navigate("/");
   };
 
+  const userUptade = async (formData: Partial<IUser>, userId: string) => {
+    const token = window.localStorage.getItem("@token");
+    try {
+      await api.patch(`/user/${userId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const userDelete = async (userId: string) => {
+    const token = window.localStorage.getItem("@token");
+
+    try {
+      await api.delete(`/user/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      userLogout();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <UserContext.Provider
-      value={{ userLogin, userRegister, userLogout, userIsLogin, userId }}
+      value={{
+        userLogin,
+        userRegister,
+        userLogout,
+        userIsLogin,
+        userId,
+        userUptade,
+        userDelete,
+      }}
     >
       {children}
     </UserContext.Provider>

@@ -88,6 +88,14 @@ export const StyledHeader = styled.div`
     color: var(--white);
     font-size: 22px;
   }
+  .container-image-profile button {
+    background-color: transparent;
+    border: none;
+    color: var(--white);
+    font-size: 22px;
+    text-transform: capitalize;
+    cursor: pointer;
+  }
 
   .container-image-profile img {
     width: 50px;

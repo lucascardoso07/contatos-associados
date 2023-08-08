@@ -1,7 +1,11 @@
 import { CreateContactForm } from "../../forms/CreateContactForm";
 import { StyledModalCrete } from "./style";
 
-export const CreateModalContact = ({ handdleModalCreate }: any) => {
+interface IProps {
+  handdleModalCreate: () => void;
+}
+
+export const CreateModalContact = ({ handdleModalCreate }: IProps) => {
   return (
     <StyledModalCrete>
       <div className="modal-card">

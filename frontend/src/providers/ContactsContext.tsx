@@ -5,16 +5,24 @@ import {
   IContactCreateFormData,
   IContactProvidersProps,
 } from "../interfaces/Contacts.interfaces";
+import { IUser } from "../interfaces/Users.interfaces";
 
 export const ContactContext = createContext({} as IContactProvidersProps);
 
 interface IChildrenProps {
   children: React.ReactNode;
 }
+export interface IUserForUserState {
+  id: string;
+  name: string;
+  email: string;
+  telefone: string;
+}
 
 export const ContactProviders = ({ children }: IChildrenProps) => {
   const token = localStorage.getItem("@token");
   const [contacts, setContacts] = useState<IContact[]>([]);
+  const [user, setUser] = useState<IUserForUserState>();
 
   const createContact = async (formData: IContactCreateFormData) => {
     try {
@@ -36,17 +44,18 @@ export const ContactProviders = ({ children }: IChildrenProps) => {
     const userId = localStorage.getItem("@userId");
     const listAllContacts = async () => {
       try {
-        const response = await api.get(`user/${userId}`, {
+        const response = await api.get<IUser>(`user/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        const userData = {
+        const userData: IUserForUserState = {
           id: response.data.id,
           name: response.data.name,
           email: response.data.email,
+          telefone: response.data.telefone,
         };
-        localStorage.setItem("@user", JSON.stringify(userData));
+        setUser(userData);
         setContacts(response.data.contacts);
       } catch (error) {
         console.log(error);
@@ -62,7 +71,7 @@ export const ContactProviders = ({ children }: IChildrenProps) => {
   ) => {
     const token = window.localStorage.getItem("@token");
     try {
-      const response = await api.patch(`/contact/${contactId}`, formData, {
+      await api.patch(`/contact/${contactId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -99,7 +108,14 @@ export const ContactProviders = ({ children }: IChildrenProps) => {
 
   return (
     <ContactContext.Provider
-      value={{ createContact, contacts, ContactUptade, contactDelete }}
+      value={{
+        createContact,
+        contacts,
+        ContactUptade,
+        contactDelete,
+        user,
+        setUser,
+      }}
     >
       {children}
     </ContactContext.Provider>
